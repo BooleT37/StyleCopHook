@@ -13,7 +13,7 @@ STYLECOP_PATH = os.environ.get('HG_STYLECOP_PATH')
 
 def check(ui, repo, node, **kwargs):
     if HOOKS_PATH is None:
-        ui.warn("HG_HOOKS_PATH environmental variable isn't set, StyleCop cannot be hooked" + 
+        ui.warn("HG_HOOKS_PATH environmental variable isn't set, StyleCop cannot be hooked\n" + 
         "Go to your \"hooks\" directory and run Initialize.bat to set this variable\n")
         return 0
     
@@ -22,7 +22,7 @@ def check(ui, repo, node, **kwargs):
     OUT_FILE = HOOKS_PATH + "\\out.xml"
     
     if STYLECOP_PATH is None:
-        ui.warn("HG_STYLECOP_PATH environmental variable isn't set, StyleCop cannot be hooked" + 
+        ui.warn("HG_STYLECOP_PATH environmental variable isn't set, StyleCop cannot be hooked\n" + 
         "Go to your StyleCopCli directory and run Initialize.bat to set this variable\n")
         return 0
         

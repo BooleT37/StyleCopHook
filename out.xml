@@ -1,4 +1,1 @@
-<StyleCopViolations>
-  <Violation Section="Root.Web.Models.Package" LineNumber="7" Source="C:\work\hg\sup-uc\Web\Models\Package\PackageFilters.cs" RuleNamespace="StyleCop.CSharp.LayoutRules" Rule="CodeMustNotContainMultipleBlankLinesInARow" RuleId="SA1507">The code must not contain multiple blank lines in a row.</Violation>
-  <Violation Section="Root.Web.Models.Package.PackageFilters.PackageFilters" LineNumber="16" Source="C:\work\hg\sup-uc\Web\Models\Package\PackageFilters.cs" RuleNamespace="StyleCop.CSharp.LayoutRules" Rule="ClosingCurlyBracketMustBeFollowedByBlankLine" RuleId="SA1513">Statements or elements wrapped in curly brackets must be followed by a blank line.</Violation>
-</StyleCopViolations>
+<StyleCopViolations />

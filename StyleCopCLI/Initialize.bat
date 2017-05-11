@@ -1,2 +1,2 @@
-@setx HG_STYLECOP_PATH %cd%
+@setx /m HG_STYLECOP_PATH %cd%
 @pause
