@@ -9,7 +9,6 @@ import xml.etree.ElementTree as ET
 REPOSITORIES_FILE_NAME = "repositories"
 
 HOOKS_PATH = os.environ.get('HG_HOOKS_PATH')
-STYLECOP_PATH = os.environ.get('HG_STYLECOP_PATH')
 
 def check(ui, repo, node, **kwargs):
     if HOOKS_PATH is None:
@@ -17,10 +16,9 @@ def check(ui, repo, node, **kwargs):
         "Go to your \"hooks\" directory and run Initialize.bat to set this variable\n")
         return 0
     
-    if STYLECOP_PATH is None:
-        ui.warn("HG_STYLECOP_PATH environmental variable isn't set, StyleCop cannot be hooked\n" + 
-        "Go to your StyleCopCli directory and run Initialize.bat to set this variable\n")
-        return 0
+    #Путь до StyleCopCli. Сейчас он находится в папке с хуком.
+    #Если будет смысл в дальнейшем перенести его отдельно - нужно будет сделать новую переменную окружения
+    STYLECOP_PATH = HOOKS_PATH + "\\StyleCopCLI"
     
     #имя файла с выводом StyleCop'а.
     #Инициализируем только после того, как убедились, что HOOKS_PATH не None
