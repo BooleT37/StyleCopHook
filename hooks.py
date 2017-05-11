@@ -17,14 +17,14 @@ def check(ui, repo, node, **kwargs):
         "Go to your \"hooks\" directory and run Initialize.bat to set this variable\n")
         return 0
     
-    #имя файла с выводом StyleCop'а.
-    #Инициализируем только после того, как убедились, что HOOKS_PATH не None
-    OUT_FILE = HOOKS_PATH + "\\out.xml"
-    
     if STYLECOP_PATH is None:
         ui.warn("HG_STYLECOP_PATH environmental variable isn't set, StyleCop cannot be hooked\n" + 
         "Go to your StyleCopCli directory and run Initialize.bat to set this variable\n")
         return 0
+    
+    #имя файла с выводом StyleCop'а.
+    #Инициализируем только после того, как убедились, что HOOKS_PATH не None
+    OUT_FILE = HOOKS_PATH + "\\out.xml"
         
     #Парсим репозитории в файле repositories
     reps = parseRepositories(HOOKS_PATH + "\\" + REPOSITORIES_FILE_NAME)
@@ -48,11 +48,11 @@ def check(ui, repo, node, **kwargs):
         #Если это не .cs-файл - пропускаем его (TODO: добавить ещё расширения?)
         if re.match('.+\.cs', currentFile) and currentFile in ctx:
             fileSet.add(currentFile)
-    #Если ни одного C#-файла было изменено - выходим
+    #Если ни одного C#-файла не было изменено - выходим
     if len(fileSet) == 0:
-        return True
+        return 0
     #Инициализируем строку для запуска 
-    cmd = STYLECOP_PATH + "\\StyleCopCLI.exe -out " + OUT_FILE + " -cs \"" + "\", \"".join(fileSet) + "\""
+    cmd = STYLECOP_PATH + "\\StyleCopCLI.exe -out " + OUT_FILE + " -set " + repo.root + "\Settings.StyleCop -cs \"" + "\", \"".join(fileSet) + "\""
     ui.status("[StyleCop]:")
     process = subprocess.Popen(cmd)
     process.wait()
@@ -79,6 +79,6 @@ def parseRepositories(fileName):
     for line in f:
         parts = line.split("=")
         repoName = parts[0].strip()
-        repoStatus = parts[1].strip()
+        repoStatus = "1" if len(parts) == 1 else parts[1].strip()
         reps[repoName] = repoStatus
     return reps
