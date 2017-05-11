@@ -55,6 +55,7 @@ rename %TEMP_FILE% %REPOS_FILE_NAME%
 exit /B
 
 :SUB currepo repo status curstatus
+rem Если случайно встретили пустую строку - пропускаем её
 if "%1"=="" GOTO CONTINUE
 if "%1"==" " GOTO CONTINUE
 
