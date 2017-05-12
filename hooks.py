@@ -67,13 +67,22 @@ def check(ui, repo, node, **kwargs):
     return process.returncode
     
 def parseXml(file):
+    MAX_COUNT = 10
     ret = ""
     tree = ET.parse(file)
     root = tree.getroot()
+    ret += str(len(root)) + " StyleCop violations found:\n"
     count = 1
+    hasMoreViolations = False
     for child in root:
         ret += "    " + str(count) + ": " + child.attrib["Source"] + " [line " + child.attrib["LineNumber"] + "]:\n" + "    " + child.text + "\n"
         count += 1
+        if count > MAX_COUNT:
+            hasMoreViolations = True
+            break
+    if hasMoreViolations:
+        ret+= "    ...\n"
+    ret += "\n"
     return ret
     
 def parseRepositories(fileName):
