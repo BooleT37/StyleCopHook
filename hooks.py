@@ -49,8 +49,13 @@ def check(ui, repo, node, **kwargs):
     #Если ни одного C#-файла не было изменено - выходим
     if len(fileSet) == 0:
         return 0
+        
+    #Подгружаем файл настроек только если он существует
+    settingsFile = repo.root + "\Settings.StyleCop"
+    settingsString = " -set " + settingsFile if os.path.isfile(settingsFile) else ""
+    
     #Инициализируем строку для запуска 
-    cmd = STYLECOP_PATH + "\\StyleCopCLI.exe -out " + OUT_FILE + " -set " + repo.root + "\Settings.StyleCop -cs \"" + "\", \"".join(fileSet) + "\""
+    cmd = STYLECOP_PATH + "\\StyleCopCLI.exe -out " + OUT_FILE + settingsString + " -cs \"" + "\", \"".join(fileSet) + "\""
     ui.status("[StyleCop]:")
     process = subprocess.Popen(cmd)
     process.wait()
